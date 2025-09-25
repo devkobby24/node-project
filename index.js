@@ -20,7 +20,7 @@ app.get('/api/get-products', async (req, res) => {
     }
 });
 
-
+//getting a product by id
 app.get('/api/get-product/:id', async (req, res) => {
     try {
         const products = await Product.findById(req.params.id);
@@ -30,6 +30,18 @@ app.get('/api/get-product/:id', async (req, res) => {
         res.status(500).send('Server Error');
     }
 });
+
+//update a product
+app.put('/api/update-product/:id', async (req, res) => {
+    try {
+        const updatedProduct = await Product.findByIdAndUpdate(req.params.id, req.body, { new: true });
+        res.status(200).json(updatedProduct);
+    } catch (error) {
+        console.log(error);
+        res.status(500).send('Server Error');
+    }
+});
+
 
 
 //create a product
