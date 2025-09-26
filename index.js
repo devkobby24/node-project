@@ -55,6 +55,17 @@ app.post('/api/add-products', async (req, res) => {
     }
 });
 
+//delete a product
+app.put('api/delete-first-match', async (req, res) => {
+    try {
+        const deletedProduct = await Product.deleteOne({ "name": "IPhone 17 Pro Max" });
+        res.status(201).json(deletedProduct)
+    }
+    catch (error) {
+        res.status(500).send('An Error Occured')
+    }
+});
+
 app.listen(3000);
 
 //connect to db
