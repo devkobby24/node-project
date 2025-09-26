@@ -42,6 +42,20 @@ app.put('/api/update-product/:id', async (req, res) => {
     }
 });
 
+//update multiple documents
+app.put('/api/update-many', async (req, res) => {
+    try {
+        const { filter, update } = req.body;
+
+        const updatedProducts = await Product.updateMany(filter, update);
+
+        res.status(200).json(updatedProducts);
+    } catch (error) {
+        console.error(error);
+        res.status(500).send("An error occurred");
+    }
+});
+
 
 
 //create a product
@@ -69,7 +83,7 @@ app.delete('/api/delete-first-match', async (req, res) => {
 //delete all matching products by filter
 app.delete('/api/delete-all', async (req, res) => {
     try {
-        const deleteAllProducts = await Product.deleteOne(req.body);
+        const deleteAllProducts = await Product.deleteMany(req.body);
         res.status(201).json(deleteAllProducts)
 
         if (!deleteAllProducts) {
