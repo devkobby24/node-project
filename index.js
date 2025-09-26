@@ -31,7 +31,7 @@ app.get('/api/get-product/:id', async (req, res) => {
     }
 });
 
-//update a product
+//update a product by id
 app.put('/api/update-product/:id', async (req, res) => {
     try {
         const updatedProduct = await Product.findByIdAndUpdate(req.params.id, req.body, { new: true });
@@ -55,14 +55,30 @@ app.post('/api/add-products', async (req, res) => {
     }
 });
 
-//delete a product
-app.put('api/delete-first-match', async (req, res) => {
+//delete a product by filter
+app.delete('/api/delete-first-match', async (req, res) => {
     try {
-        const deletedProduct = await Product.deleteOne({ "name": "IPhone 17 Pro Max" });
+        const deletedProduct = await Product.deleteOne(req.body);
         res.status(201).json(deletedProduct)
     }
     catch (error) {
         res.status(500).send('An Error Occured')
+    }
+});
+
+//delete a product by id
+app.delete('/api/delete/:id', async (req, res) => {
+    try {
+        const { id } = req.params.id
+        const deletedProductById = await Product.findByIdAndDelete(id);
+        if (!deletedProductById) {
+            return res.status(404).json({ message: 'Product not found' });
+        }
+        res.status(200).json(deletedProductById)
+    }
+    catch (error) {
+        console.log(error)
+        res.status(404).send('The Product Could Not Be Found')
     }
 });
 
