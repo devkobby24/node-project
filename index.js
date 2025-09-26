@@ -69,16 +69,15 @@ app.delete('/api/delete-first-match', async (req, res) => {
 //delete a product by id
 app.delete('/api/delete/:id', async (req, res) => {
     try {
-        const { id } = req.params.id
-        const deletedProductById = await Product.findByIdAndDelete(id);
-        if (!deletedProductById) {
+        const deletedProductById = await Product.findByIdAndDelete(req.params.id);
+         if (!deletedProductById) {
             return res.status(404).json({ message: 'Product not found' });
         }
         res.status(200).json(deletedProductById)
     }
     catch (error) {
         console.log(error)
-        res.status(404).send('The Product Could Not Be Found')
+        res.status(500).send('An Error Occured')
     }
 });
 
