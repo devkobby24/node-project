@@ -66,11 +66,26 @@ app.delete('/api/delete-first-match', async (req, res) => {
     }
 });
 
+//delete all matching products by filter
+app.delete('/api/delete-all', async (req, res) => {
+    try {
+        const deleteAllProducts = await Product.deleteOne(req.body);
+        res.status(201).json(deleteAllProducts)
+
+        if (!deleteAllProducts) {
+            res.send("Products doesn't exist")
+        }
+    }
+    catch (error) {
+        res.status(500).send('An Error Occured')
+    }
+});
+
 //delete a product by id
 app.delete('/api/delete/:id', async (req, res) => {
     try {
         const deletedProductById = await Product.findByIdAndDelete(req.params.id);
-         if (!deletedProductById) {
+        if (!deletedProductById) {
             return res.status(404).json({ message: 'Product not found' });
         }
         res.status(200).json(deletedProductById)
