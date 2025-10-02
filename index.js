@@ -4,7 +4,6 @@ const dotenv = require('dotenv');
 dotenv.config();
 const app = express();
 const dbconnect = process.env.DATABASE_URL;
-const Product = require('./models/product.model.js');
 const productRoutes = require('./routes/product.route.js');
 
 
