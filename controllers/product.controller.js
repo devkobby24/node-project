@@ -33,7 +33,7 @@ const updateProductById = async (req, res) => {
     }
 };
 
-const updateManyProducts = async (req, res) => {
+const updateMultipleProducts = async (req, res) => {
     try {
         const { filter, update } = req.body;
 
@@ -94,4 +94,4 @@ const deleteProductById = async (req, res) => {
     }
 }
 
-module.exports = { getProducts, getProductById, updateProductById, updateManyProducts, createProduct, deleteProductByFilter, deleteAllMatchingProducts, deleteProductById };
+module.exports = { getProducts, getProductById, updateProductById, updateMultipleProducts, createProduct, deleteProductByFilter, deleteAllMatchingProducts, deleteProductById };
