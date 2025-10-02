@@ -14,7 +14,12 @@ app.use(express.urlencoded({ extended: false }));
 //routes
 app.use("/api", productRoutes);
 
+app.listen(3000);
 
+//connect to db
+mongoose.connect(dbconnect)
+    .then(() => console.log('Connected to DB succcessfully'))
+    .catch(err => console.log(err));
 
 
 //get all products
@@ -118,9 +123,3 @@ app.use("/api", productRoutes);
 //     }
 // });
 
-app.listen(3000);
-
-//connect to db
-mongoose.connect(dbconnect)
-    .then(() => console.log('Connected to DB succcessfully'))
-    .catch(err => console.log(err));
